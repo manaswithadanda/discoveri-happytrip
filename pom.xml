@@ -14,6 +14,11 @@
 		<org.aspectj-version>1.6.9</org.aspectj-version>
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 		<jpa.version>2.0-cr-1</jpa.version>
+		
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <suiteXmlFile>${basedir}/testng.xml</suiteXmlFile>
+	    <skipTests>false</skipTests>
+
 	</properties>
 	<repositories>
 		<repository>
@@ -34,17 +39,41 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
+					<source>1.7</source>
+                    <target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+					 <artifactId>maven-surefire-plugin</artifactId>
+					 <version>3.0.0-M4</version>
+                  <configuration>
+                     <skipTests>${skipTests}</skipTests>
+                     <testFailureIgnore>false</testFailureIgnore>
+                  </configuration>
+           	</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
+	
+		<dependency>
+		    <groupId>org.testng</groupId>
+		    <artifactId>testng</artifactId>
+		    <version>7.1.0</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+		    <groupId>org.seleniumhq.selenium</groupId>
+		    <artifactId>selenium-java</artifactId>
+		    <version>3.141.59</version>
+		</dependency>
+			
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
