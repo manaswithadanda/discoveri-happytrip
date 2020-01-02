@@ -26,7 +26,7 @@ public class TestLogin {
 		WebElement ele = driver.findElement(By.id("button_flight_search"));
 		ele.click();
 		
-		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loca tion is emp ty"));
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
 		driver.quit();
 	}
 }
