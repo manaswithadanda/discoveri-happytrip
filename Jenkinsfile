@@ -15,7 +15,7 @@ pipeline {
 				//powershell 'java -version'
 				//powershell 'mvn -version'
 				//powershell 'mvn clean package'
-				powershell label: '', script: 'mvn -Dmaven.test.skip=true install'
+				powershell label: '', script: 'mvn clean package'
 			}
 		}
 		
