@@ -15,7 +15,14 @@ pipeline {
 				//powershell 'java -version'
 				//powershell 'mvn -version'
 				//powershell 'mvn clean package'
-				powershell label: '', script: 'mvn clean package'
+				script {
+					if(params.RunTests == false) {
+						bat "mvn clean package -DskipTests"
+					}
+					else {
+						bat "mvn clean package"
+					}
+				}
 			}
 		}
 		
@@ -32,7 +39,7 @@ pipeline {
 			steps {
 				
 				withSonarQubeEnv('SonarQubeServer') {
-				    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=1.0 -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
+				    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=1.1 -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
 				}
 			}
 		}
@@ -56,11 +63,12 @@ pipeline {
 	post {
         	always {
 			
-			//Publich TestNG Result
-			step([$class: 'Publisher'])
+			//Publich TestNG Result & Threshold to fail build
+			step([$class: 'Publisher', failedFails: 60, unstableFails: 100])
             
 			//Sending Email
      			step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'manaswitha.danda@pratian.com', sendToIndividuals: false])
+			
 		}
     	}
 }
