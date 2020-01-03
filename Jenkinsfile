@@ -67,8 +67,9 @@ pipeline {
 			step([$class: 'Publisher', failedFails: 60, unstableFails: 100])
             
 			//Sending Email
-     			emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
-Check console output at $BUILD_URL to view the results.''', replyTo: 'manaswitha.danda@pratian.com', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'manaswitha.danda@pratian.com'
+     			emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+Check console output at $BUILD_URL to view the results.
+${FILE, path="target/surefire-reports/emailable-report.html"}''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'manaswitha.danda@pratian.com'
 			
 		}
     	}
