@@ -3,30 +3,43 @@ package testHappyTrip;
 import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestLogin {
 	
-	WebDriver driver;
-	String chromeDriverPath = "./src/test/resources/drivers/chromedriver.exe";
-	String URL = "http://172.30.15.99:8085/HappyTrip";
-	WebDriverWait wait;
+	private WebDriver driver;
+	private String chromeDriverPath = "./src/test/resources/drivers/chromedriver.exe";
+	private String URL = "http://192.168.1.5:8085/HappyTrip";
+	private WebDriverWait wait; 
 	
-	@Test
-	public void testLogin() {
-		
+	@BeforeTest
+	public void setup() {
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(URL);
-
-		WebElement ele = driver.findElement(By.id("button_flight_search"));
-		ele.click();
-		
+		wait = new WebDriverWait (driver, 20);
+	}
+	
+	@Test
+	public void testSearchFlightwithNoData() {
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
 		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
+	}
+	
+	@Test
+	public void testSearchFlightwithData() {
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
+	}
+	
+	@AfterTest
+	public void tearDown() {
 		driver.quit();
 	}
 }
