@@ -14,7 +14,7 @@ public class TestLogin {
 	
 	private WebDriver driver;
 	private String chromeDriverPath = "./src/test/resources/drivers/chromedriver.exe";
-	private String URL = "http://192.168.1.5:8085/HappyTrip";
+	private String URL = "http://localhost:8085/HappyTrip";
 	private WebDriverWait wait; 
 	
 	@BeforeTest
