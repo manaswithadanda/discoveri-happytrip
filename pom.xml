@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.happytrip</groupId>
-	<artifactId>prabhav</artifactId>
+	<artifactId>mshappytrip</artifactId>
 	<name>HappyTrip</name>
 	<packaging>war</packaging>
-	<version>1</version>
+	<version>1.1</version>
 	<properties>
 		<java-version>1.7</java-version>
 		<org.springframework-version>3.2.0.RELEASE</org.springframework-version>
