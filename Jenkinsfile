@@ -22,6 +22,7 @@ pipeline {
 					else {
 						bat "mvn clean package"
 					}
+					archiveArtifacts '/**/*.war'
 				}
 			}
 		}
