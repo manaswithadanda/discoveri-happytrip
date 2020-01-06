@@ -38,6 +38,12 @@ public class TestLogin {
 		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loca tion is empty"));
 	}
 	
+	@Test
+	public void testSearchFlightwithData3() {
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
+	}
+	
 	@AfterTest
 	public void tearDown() {
 		driver.quit();
