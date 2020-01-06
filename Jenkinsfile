@@ -37,9 +37,11 @@ pipeline {
 			}
 			
 			steps {
-				def scannerHome = tool 'GTSonarQubeScanner'
-				withSonarQubeEnv('SonarQubeServer') {
-				    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
+				script {
+					def scannerHome = tool 'GTSonarQubeScanner'
+					withSonarQubeEnv('SonarQubeServer') {
+					    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
+					}
 				}
 			}
 		}
