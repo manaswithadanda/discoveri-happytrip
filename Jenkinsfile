@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	triggers {
+        pollSCM('5 * * * *')
+    }
 	stages {
 		stage('Source') { 
 			steps {
@@ -29,16 +32,12 @@ pipeline {
 		
 		stage('Code Analysis') { 
 		
-			environment {
-				def scannerHome = tool 'GTSonarQubeScanner'
-			}
-			
 			when {
 				expression { return params.SonarQube }
 			}
 			
 			steps {
-				
+				def scannerHome = tool 'GTSonarQubeScanner'
 				withSonarQubeEnv('SonarQubeServer') {
 				    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
 				}
@@ -48,7 +47,8 @@ pipeline {
 		stage('Deploy approval') {
 			steps {
 				script {
-					def result = input(id: 'Proceed1', message: 'Deployment Approval', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+					//def result = input(id: 'Proceed1', message: 'Deployment Approval', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+					input id: 'Custid', message: 'Need Approval for Deployment', ok: 'Approve', submitter: 'projectmanager, pratian', submitterParameter: 'ShouldBeSubmitterAction'
 				}
 			}
 		}
@@ -68,10 +68,10 @@ pipeline {
 			step([$class: 'Publisher', failedFails: 60, unstableFails: 100])
             
 			//Sending Email
-     			emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+     		emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 Check console output at $BUILD_URL to view the results.
 ${FILE, path="target/surefire-reports/emailable-report.html"}''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'manaswitha.danda@pratian.com'
 			
-		}
-    	}
+			}
+    }
 }
