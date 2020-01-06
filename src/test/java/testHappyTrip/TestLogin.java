@@ -29,19 +29,19 @@ public class TestLogin {
 	@Test
 	public void testSearchFlightwithNoData() {
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
-		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loc ation is empty"));
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
 	}
 	
 	@Test
 	public void testSearchFlightwithData() {
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
-		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loca tion is empty"));
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
 	}
 	
 	@Test
 	public void testSearchFlightwithData3() {
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
-		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loca tion is empty"));
 	}
 	
 	@AfterTest
