@@ -35,7 +35,7 @@ public class TestLogin {
 	@Test
 	public void testSearchFlightwithData() {
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button_flight_search")))).click();
-		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Location is empty"));
+		assertTrue(driver.findElement(By.xpath("//*[@id='errorContainer']/li[2]")).getText().contains("Loca tion is empty"));
 	}
 	
 	@AfterTest
