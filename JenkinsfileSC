@@ -1,0 +1,44 @@
+pipeline {
+	agent any
+
+	stages {
+		stage('Source') { 
+			steps {
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manaswithadanda/discoveri-happytrip.git']]])
+			}
+		}
+		stage('Build') { 
+			tools {
+				jdk 'jdk8'
+				maven 'MavenConfiguration'
+			}
+			steps {
+				//powershell 'java -version'
+				//powershell 'mvn -version'
+				//powershell 'mvn clean package'
+				script {
+					if(params.RunTests == false) {
+						bat "mvn clean package -DskipTests"
+					}
+					else {
+						bat "mvn clean package"
+					}
+					archiveArtifacts '/**/*.war'
+				}
+			}
+		}
+		
+		stage('Code Analysis') { 
+		
+			steps {
+				script {
+					def scannerHome = tool 'GTSonarQubeScanner'
+					withSonarQubeEnv('SonarQubeServer') {
+					    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=http:\"\"localhost:9000 -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
+					}
+				}
+			}
+		}
+		
+	}
+}
