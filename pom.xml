@@ -73,6 +73,15 @@
 		    <artifactId>selenium-java</artifactId>
 		    <version>3.141.59</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.javascript/javascript-checks-testkit -->
+		<dependency>
+		    <groupId>org.sonarsource.javascript</groupId>
+		    <artifactId>javascript-checks-testkit</artifactId>
+		    <version>6.1.0.11503</version>
+		    <scope>test</scope>
+		</dependency>
+
 			
 		<!-- Spring -->
 		<dependency>
