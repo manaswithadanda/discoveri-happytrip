@@ -28,7 +28,7 @@ pipeline {
 				script {
 					def scannerHome = tool 'GTSonarQubeScanner'
 					withSonarQubeEnv('SonarCloud') {
-					    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=https:\"\"sonarcloud.io -Dsonar.projectName=HappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
+					    bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.host.url=https:\"\"sonarcloud.io -Dsonar.projectName=SCHappyTrip -Dsonar.projectVersion=${currentBuild.number} -Dsonar.projectKey=HappyTrip:app -Dsonar.sources=. -Dsonar.java.binaries=."
 					}
 				}
 			}
