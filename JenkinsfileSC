@@ -13,17 +13,11 @@ pipeline {
 				maven 'MavenConfiguration'
 			}
 			steps {
-				//powershell 'java -version'
-				//powershell 'mvn -version'
-				//powershell 'mvn clean package'
+
 				script {
-					if(params.RunTests == false) {
-						bat "mvn clean package -DskipTests"
-					}
-					else {
+
 						bat "mvn clean package"
-					}
-					archiveArtifacts '/**/*.war'
+						archiveArtifacts '/**/*.war'
 				}
 			}
 		}
