@@ -16,7 +16,7 @@ pipeline {
 
 				script {
 
-						bat "mvn clean package"
+						bat "mvn clean package -DskipTests"
 						archiveArtifacts '/**/*.war'
 				}
 			}
